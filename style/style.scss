@@ -1,0 +1,141 @@
+/*
+  Variables
+*/
+$color_primary: #1abc9c;
+$color_blue: #c0e6ff;
+$color_green: #e6fff4;
+
+/*
+  Mixins
+*/
+@mixin border-radius($radius){
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+  background-clip: padding-box;  /* stops bg color from leaking outside the border: */
+}
+@mixin transition($args, $value){
+  -webkit-transition: $args $value; /* Safari */
+  transition: width $args $value;
+}
+
+/*
+  Animations
+*/
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+/*
+  Global
+*/
+
+body{
+  font-family: 'Muli', sans-serif;
+  line-height: 1.5;
+  .container {
+      box-shadow: 0 0 10px #bbb;
+  }
+}
+
+.background-green{
+  background-color: $color_green;
+}
+.background-blue{
+  background-color: $color_blue;
+}
+
+/*
+  Bootstrap overwrites
+*/
+
+/*
+  App Specific
+*/
+.app-heading{
+    background-color: $color_primary;
+    padding: 10px 0;
+    text-align: center;
+
+    h3{
+      margin-bottom: 0;
+      color: #fff;
+    }
+}
+.quiz-body{
+  .left-section{
+    min-height: calc(100vh - 55px);
+    padding: 10px;
+    border-right: 1px solid $color_primary;
+    .question-list{
+      width: calc(100% + 20px);
+      margin-left: -10px;
+    }
+    .question-item{
+      padding: 10px 15px;
+      cursor: pointer;
+      @include transition(background-color, 200ms);
+    }
+    .question-item:hover{
+      background-color: #1aa4ff;
+      color: #fff;
+    }
+    .delete-question{
+      span.closeIcon {
+        float: right;
+        color: #ba2a26;
+        animation: shake infinite 1s cubic-bezier(.36,.07,.19,.97) both;
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+      }
+    }
+    .delete-question:hover{
+      text-decoration: line-through;
+      background-color: #ba2a26;
+      color: #fff;
+      span.closeIcon{
+        color: #fff;
+      }
+    }
+    .question-buttons {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      text-align: center;
+      margin-left: -10px;
+      .btn-default{
+        width: 50%;
+        @include border-radius(0px);
+      }
+      .addQuestion{
+        background-color: #2edc2e;
+        margin: 0;
+      }
+      .deleteQuestion{
+        background-color: #b90303;
+        color: white;
+        margin: 0;
+      }
+    }
+  }
+  .right-section{
+  }
+}
+
+.createQuestion-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
