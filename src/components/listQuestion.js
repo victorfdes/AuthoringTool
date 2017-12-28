@@ -5,6 +5,8 @@ export default class ListQuestions extends Component {
     super(props);
 
     // binders
+
+    let enableDelete = false;
   }
 
   renderQuestionList(){
@@ -26,9 +28,8 @@ export default class ListQuestions extends Component {
   }
 
   render() {
-    let enableDelete = false;
     if(this.props.currentState.questions.length > 0){
-      enableDelete = true;
+      this.enableDelete = true;
     }
     return (
       <div>
@@ -38,12 +39,12 @@ export default class ListQuestions extends Component {
         </div>
         <div className="question-buttons">
           <input className="btn btn-default addQuestion" type="button" value="Add"
-            onClick={() => this.props.addQuestion('', [], '')}
+            onClick={() => this.props.addQuestion("", "", "")}
             disabled={this.props.currentState.questionLock}
           />
           <input className="btn btn-default deleteQuestion" type="button" value="Delete"
             onClick={() => this.props.handleDeleteMode(true)}
-            disabled={!enableDelete}
+            disabled={!this.enableDelete}
           />
         </div>
       </div>

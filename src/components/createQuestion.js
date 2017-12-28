@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import {uploadFiles} from '../helpers/cloudinary';
+
 export default class CreateQuestion extends Component{
   constructor(props){
     super(props);
@@ -33,6 +35,12 @@ export default class CreateQuestion extends Component{
     }
 
   }
+  handleImageUpload(e){
+    const file = e.target.files[0];
+    console.log(file);
+    uploadFiles(file);
+    console.log('fileUpload Call done');
+  }
   render(){
     if(this.props.activeQuestion === 0){
       return(
@@ -51,6 +59,26 @@ export default class CreateQuestion extends Component{
             value={this.props.questions[this.props.activeQuestion - 1].title}
             onChange={this.handleQuestionChange}
           />
+        </div>
+        <div className="form-group">
+          <label htmlFor="imageUpload">Image: (optional)</label>
+          <input type="file" id="imageUpload"
+            onChange={this.handleImageUpload}
+          />
+        </div>
+        <div className="options-area">
+          <h6>Options:</h6>
+          <div className="row">
+            <div className="col">
+              1 of 2
+            </div>
+            <div className="col">
+              1 of 2
+            </div>
+          </div>
+        </div>
+        <div className="submit-section">
+          <input type="button" value="Submit" className="question-submit" />
         </div>
       </div>
     );

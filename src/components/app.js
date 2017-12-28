@@ -5,15 +5,36 @@ import ListQuestion from './listQuestion';
 import DeleteQuestions from './deleteQuestion';
 import CreateQuestion from './createQuestion';
 
+
+//const questionInfo = new Cookies(); // Declare cookie to store data
+
 export default class App extends Component {
   constructor(props){
     super(props);
+    let questions = Object.assign([]);
+    if (typeof localStorage.questions != 'undefined'){
+      let stringifiedQuestions = JSON.parse(localStorage.questions);
+      let numberOfQuestions = stringifiedQuestions.length;
+      //console.log(numberOfQuestions);
+      try {
+        let newQuestions = [];
+        for(let i=0; i<numberOfQuestions; i++){
+          newQuestions.push(JSON.parse(stringifiedQuestions[i]));
+        }
+        questions = Object.assign([], newQuestions);
+        //console.log(questions);
+      } catch (ex) {
+        console.error(ex);
+      }
+
+    }
     this.state = {
-      questions: Object.assign([]),   // The entire questions object shall be stored here.
+      questions: questions,   // The entire questions object shall be stored here.
       activeQuestion: 0,    // indexOf the current question.
       questionLock: false,  // Prevent another question from being updated while one is edited.
       deleteMode: false,    // toggle between delete or add/modify question view.
     };
+
 
     // binders
 
@@ -64,7 +85,9 @@ export default class App extends Component {
   handleModifyQuestionTitle(questionID, newQuestion){
     let newQuestions = Object.assign([], this.state.questions);
     newQuestions[questionID - 1] = Object.assign({}, this.state.questions[questionID - 1], {title: newQuestion});
-
+    //console.log(this.stringifyQuestions(newQuestions));
+    //questionInfo.set('questions', this.stringifyQuestions(newQuestions), { path: '/', maxAge: 31536000 });
+    localStorage.questions = this.stringifyQuestions(newQuestions);
     this.setState({
       questions: newQuestions
     });
@@ -85,10 +108,17 @@ export default class App extends Component {
   releaseQuestionLock(){
     this.setState({questionLock: false});
   }
-
+  stringifyQuestions(questions){
+    let numberOfQuestions = questions.length;
+    let newQuestions = [];
+    for(let i=0; i<numberOfQuestions; i++){
+      newQuestions.push(JSON.stringify(questions[i]));
+    }
+    return JSON.stringify(newQuestions);
+  }
 
   render() {
-    //console.log(this.state);
+    //console.log(localStorage.questions);
     return (
       <div>
         <div className="row">

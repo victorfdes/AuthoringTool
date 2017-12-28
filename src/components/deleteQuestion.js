@@ -55,7 +55,6 @@ export default class DeleteQuestions extends Component {
           />
           <input className="btn btn-default deleteQuestion" type="button" value="Cancel"
             onClick={() => this.props.handleDeleteMode(false)}
-            disabled={!enableDelete}
           />
         </div>
       </div>
