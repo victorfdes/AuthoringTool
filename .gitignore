@@ -1,5 +1,4 @@
 node_modules/
-style/style.css
 style/style.css.map
 style/.sass-cache/
 src/config.js
