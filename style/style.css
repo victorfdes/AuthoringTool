@@ -128,6 +128,8 @@ body {
     box-shadow: 0 0 10px #ccc; }
 
   .quiz-body .left-section .question-buttons {
-    position: fixed; } }
+    position: fixed;
+    width: 100%;
+    left: 10px; } }
 
 /*# sourceMappingURL=style.css.map */
