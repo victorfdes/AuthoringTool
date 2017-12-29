@@ -19896,8 +19896,6 @@
 	    value: function handleModifyQuestionTitle(questionID, newQuestion) {
 	      var newQuestions = Object.assign([], this.state.questions);
 	      newQuestions[questionID - 1] = Object.assign({}, this.state.questions[questionID - 1], { title: newQuestion });
-	      //console.log(this.stringifyQuestions(newQuestions));
-	      //questionInfo.set('questions', this.stringifyQuestions(newQuestions), { path: '/', maxAge: 31536000 });
 	      localStorage.questions = this.stringifyQuestions(newQuestions);
 	      this.setState({
 	        questions: newQuestions
@@ -19906,16 +19904,13 @@
 	  }, {
 	    key: 'handleAddImage',
 	    value: function handleAddImage(questionID, image) {
-	      //console.log('Question: ' + questionID);
-	      //console.log(image);
 
 	      if (image.resource_type === 'image') {
-	        //console.log('image');
 	        var imageData = {
 	          width: image.width,
 	          height: image.height,
 	          format: image.format,
-	          url: image.url
+	          url: image.secure_url
 	        };
 	        var newQuestions = Object.assign([], this.state.questions);
 	        newQuestions[questionID - 1] = Object.assign({}, this.state.questions[questionID - 1], { img: JSON.stringify(imageData) });
@@ -20008,7 +20003,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      //console.log(this.state.questions);
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -20060,7 +20054,7 @@
 /* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -20095,15 +20089,23 @@
 	  }
 
 	  _createClass(ListQuestions, [{
-	    key: 'renderQuestionList',
+	    key: "renderQuestionList",
 	    value: function renderQuestionList() {
 	      var _this2 = this;
 
 	      if (this.props.currentState.questions.length === 0) {
 	        return _react2.default.createElement(
-	          'span',
-	          null,
-	          'You don\'t have any question\'s yet. Please add one'
+	          "div",
+	          { className: "row question-warning" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col" },
+	            _react2.default.createElement(
+	              "span",
+	              null,
+	              "You don't have any question's yet. Please add one"
+	            )
+	          )
 	        );
 	      }
 	      return this.props.currentState.questions.map(function (questions) {
@@ -20113,20 +20115,20 @@
 	          colorClass = 'question-item background-green';
 	        }
 	        return _react2.default.createElement(
-	          'div',
+	          "div",
 	          { className: colorClass, key: questions.title, value: questions.title,
 	            onClick: function onClick() {
 	              return _this2.props.handleActiveQuestion(questionIndex);
 	            }
 	          },
 	          questionIndex,
-	          ': ',
+	          ": ",
 	          questions.title
 	        );
 	      });
 	    }
 	  }, {
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      var _this3 = this;
 
@@ -20134,28 +20136,28 @@
 	        this.enableDelete = true;
 	      }
 	      return _react2.default.createElement(
-	        'div',
+	        "div",
 	        null,
 	        _react2.default.createElement(
-	          'h3',
+	          "h3",
 	          null,
-	          'Questions:'
+	          "Questions:"
 	        ),
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'question-list' },
+	          "div",
+	          { className: "question-list" },
 	          this.renderQuestionList()
 	        ),
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'question-buttons' },
-	          _react2.default.createElement('input', { className: 'btn btn-default addQuestion', type: 'button', value: 'Add',
+	          "div",
+	          { className: "question-buttons" },
+	          _react2.default.createElement("input", { className: "btn btn-default addQuestion", type: "button", value: "Add",
 	            onClick: function onClick() {
 	              return _this3.props.addQuestion("", "", null);
 	            },
 	            disabled: this.props.currentState.questionLock
 	          }),
-	          _react2.default.createElement('input', { className: 'btn btn-default deleteQuestion', type: 'button', value: 'Delete',
+	          _react2.default.createElement("input", { className: "btn btn-default deleteQuestion", type: "button", value: "Delete",
 	            onClick: function onClick() {
 	              return _this3.props.handleDeleteMode(true);
 	            },
@@ -20175,7 +20177,7 @@
 /* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -20212,7 +20214,7 @@
 	  }
 
 	  _createClass(DeleteQuestions, [{
-	    key: 'handleDeleteQuestion',
+	    key: "handleDeleteQuestion",
 	    value: function handleDeleteQuestion(index) {
 	      if (index > 0) {
 	        var arrayIndex = index - 1;
@@ -20226,15 +20228,23 @@
 	      }
 	    }
 	  }, {
-	    key: 'renderQuestionList',
+	    key: "renderQuestionList",
 	    value: function renderQuestionList() {
 	      var _this2 = this;
 
 	      if (this.state.questions.length === 0) {
 	        return _react2.default.createElement(
-	          'span',
-	          null,
-	          'All questions will be deleted upon save.'
+	          "div",
+	          { className: "row question-warning" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col" },
+	            _react2.default.createElement(
+	              "span",
+	              null,
+	              "All questions will be deleted upon save."
+	            )
+	          )
 	        );
 	      }
 	      return this.state.questions.map(function (questions) {
@@ -20244,50 +20254,50 @@
 	          colorClass = 'delete-question question-item background-green';
 	        }
 	        return _react2.default.createElement(
-	          'div',
+	          "div",
 	          { className: colorClass, key: questions.title, value: questions.title,
 	            onClick: function onClick() {
 	              return _this2.handleDeleteQuestion(questionIndex);
 	            }
 	          },
 	          questionIndex,
-	          ': ',
+	          ": ",
 	          questions.title,
 	          _react2.default.createElement(
-	            'span',
-	            { className: 'closeIcon' },
-	            'x'
+	            "span",
+	            { className: "closeIcon" },
+	            "x"
 	          )
 	        );
 	      });
 	    }
 	  }, {
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      var _this3 = this;
 
 	      return _react2.default.createElement(
-	        'div',
+	        "div",
 	        null,
 	        _react2.default.createElement(
-	          'h3',
+	          "h3",
 	          null,
-	          'Delete:'
+	          "Delete:"
 	        ),
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'question-list' },
+	          "div",
+	          { className: "question-list" },
 	          this.renderQuestionList()
 	        ),
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'question-buttons' },
-	          _react2.default.createElement('input', { className: 'btn btn-default addQuestion', type: 'button', value: 'Save',
+	          "div",
+	          { className: "question-buttons" },
+	          _react2.default.createElement("input", { className: "btn btn-default addQuestion", type: "button", value: "Save",
 	            onClick: function onClick() {
 	              return _this3.props.handleDeleteSave(_this3.state.questions);
 	            }
 	          }),
-	          _react2.default.createElement('input', { className: 'btn btn-default deleteQuestion', type: 'button', value: 'Cancel',
+	          _react2.default.createElement("input", { className: "btn btn-default deleteQuestion", type: "button", value: "Cancel",
 	            onClick: function onClick() {
 	              return _this3.props.handleDeleteMode(false);
 	            }
@@ -20394,8 +20404,6 @@
 
 	      xhr.upload.addEventListener("progress", function (e) {
 	        var progress = Math.round(e.loaded * 100.0 / e.total);
-	        //console.log(`fileuploadprogress data.loaded: ${progress},
-	        //data.total: ${e.total}`);
 	      });
 
 	      xhr.onreadystatechange = function (e) {
@@ -20415,15 +20423,12 @@
 	    key: 'renderImage',
 	    value: function renderImage() {
 	      var image = this.props.currentState.questions[this.props.activeQuestion - 1].img;
-
-	      //console.log(this.props.activeQuestion - 1);
 	      if (image === null || typeof image === 'undefined') {
 	        return _react2.default.createElement('img', {
 	          src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEOElEQVR4XtWWT4hVZRjGf9+/8+fec+94Z+6dmTuOphOGQhoGmhi0CFpkC92Y4iKRigZqV0SbMFq4CIoIYhBbhLoI3Wi00ahFm0zIStPSZNQZx3HGpuv8vffce875Su4JLx1q56IPHl7eh4/n4X3ew+ET1loe5JE84KPTyhsrq2d/L69bLrAACEAIEGkjO3qR9nT0Im2FUjY3eXHiwOjk5k4Drg890//FjpEBNwYjQCnQArQEI0GrNi/b3H1etjmlBY6wKF+w6tBwnJlAG2ODrjx+dF9MdQqlUAJMap7yqM47eXC1FhkDV1l6PfDi/xTrRJYDVAGMbYjMkj0N5Rz05KDst1H5u97j/gkfenwo59N6Dx5UAjBRU5E1aAtVPFKBDiGvjXJHLfsp3LSm3GAZTNJQZCNqG5jW/UiUTBdtQStwDciOaIwGH7CmfUdF0OXAOLH8VwPdBE2avQPdgyBcWKqBngBTBBewTVhswF0X+lzwY1AKqgp8JZJMRL6jqOShugwG+2GgDx4u15n+aA+c+pSdA7B2EzTrEPjw+HrYuxGG18G2gZinV8Jjq6HfQJBz4oyBm8wzWARv+gL181+Sm7vJlSOvc/LDY4y8/BKfvL2XJ7Ds2wjProJ+m/BrbY633nyR557s5dC7u5n54XOUADcoJZmI5kbPiV8O7yeZ+JHZO9P8lu9h7MxXbN82yOWJaQ6+d5Spqcu8f/AMR44d5cCrw+x6KmbquyZJE6bcE4x8+w27DuTxXcgYzN6+zuTxD+jJSbo9zaWLIYkf4BUC1q8JqN0e5fDRs+zYc5J3XtlHbxzTnx9gYXNAPoqIXbh4bpITH++neq2WncAYh0KpByFA5hSrV2iaYczotSVKnmXrpiGW9dxhZHgnW6s5Xti+givjdW6MLyCxzHkwtLybsZ8v0RiblRmDlmzqGWcOGVpu1cDJC/qrsOVRQb0WE1bWsvv513BzvbTGP+Nq7WuuTrUY2pAnbDRpNDwiY/HdAmamLjIGi7YlLyV3MVbQMglEsDQpOBUKdD7BSU4T3LyNUywwPX+eR1aGRGsi4rphtmXwYo0rDabkU/i+lp1A41AoFglCiTUKIz0WGglqvkx9POSP02NcrV8gcNt/zFt6C7VSwkMbJH20CEoGZIQIlmH0mM0YOJ5D70AFL0xQUqGUYrmMcU2MzhuCgXX4YYBfKlCfXUDlm4SLgrghaCQ+RuewrQRV6UIEDtklB77trvbhNWKkFijfQSBQWpOoHEtGEsYJi/MKUapglCaKE3LVHMWkSeLEyEjhFIrMF3PZr8iTUvRajdYK4boIbZBGoL08rorRjkPUJRDWRzgtPOVge0BLH5ot4iTBaYXIpiWUKrtkPT47Hhz/yUprBUmihcQSCQkQWSFbJEoJa5HKEiIWJdbKWCjrJjgkQpE0tIyFY2x0Y+YW6fn/vyr+BEzTb/35gE/WAAAAAElFTkSuQmCC',
 	          alt: 'placeholder-image' });
 	      } else {
 	        var imageData = JSON.parse(image);
-	        //console.log(imageData);
 	        var imageStyle = {
 	          width: imageData.width * 35 / imageData.height + 'px',
 	          height: '35px'
@@ -20440,7 +20445,6 @@
 	      var optionData = ["", "", "", "", "", ""];
 	      if (options === null || typeof options === 'undefined' || options == '') {} else {
 	        optionData = JSON.parse(options);
-	        //console.log(optionData);
 	      }
 	      return _react2.default.createElement(
 	        'div',
@@ -20622,8 +20626,6 @@
 
 	var cloudinaryKeys = exports.cloudinaryKeys = {
 	  cloudName: 'vicfdes',
-	  apiKey: '449322221636527', //
-	  apiSecret: 'lL2kzD9VB46ItepLAJD27Cfc2iQ', //
 	  uploadPreset: 'authoringTool'
 	};
 
