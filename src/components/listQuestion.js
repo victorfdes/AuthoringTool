@@ -39,7 +39,7 @@ export default class ListQuestions extends Component {
         </div>
         <div className="question-buttons">
           <input className="btn btn-default addQuestion" type="button" value="Add"
-            onClick={() => this.props.addQuestion("", "", "")}
+            onClick={() => this.props.addQuestion("", "", null)}
             disabled={this.props.currentState.questionLock}
           />
           <input className="btn btn-default deleteQuestion" type="button" value="Delete"

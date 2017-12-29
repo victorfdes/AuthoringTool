@@ -45,7 +45,7 @@ export default class DeleteQuestions extends Component {
   render() {
     return (
       <div>
-        <h3>Delete Questions:</h3>
+        <h3>Delete:</h3>
         <div className="question-list">
           {this.renderQuestionList()}
         </div>
