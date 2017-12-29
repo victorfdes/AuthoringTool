@@ -13,7 +13,13 @@ export default class ListQuestions extends Component {
 
 
     if(this.props.currentState.questions.length === 0){
-      return(<span>You don't have any question's yet. Please add one</span>);
+      return(
+        <div className="row question-warning">
+          <div className="col">
+            <span>You don't have any question's yet. Please add one</span>
+          </div>
+        </div>
+      );
     }
     return this.props.currentState.questions.map((questions) => {
       let questionIndex = this.props.currentState.questions.indexOf(questions) + 1;

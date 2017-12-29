@@ -83,24 +83,19 @@ export default class App extends Component {
   handleModifyQuestionTitle(questionID, newQuestion){
     let newQuestions = Object.assign([], this.state.questions);
     newQuestions[questionID - 1] = Object.assign({}, this.state.questions[questionID - 1], {title: newQuestion});
-    //console.log(this.stringifyQuestions(newQuestions));
-    //questionInfo.set('questions', this.stringifyQuestions(newQuestions), { path: '/', maxAge: 31536000 });
     localStorage.questions = this.stringifyQuestions(newQuestions);
     this.setState({
       questions: newQuestions
     });
   }
   handleAddImage(questionID, image){
-    //console.log('Question: ' + questionID);
-    //console.log(image);
 
     if(image.resource_type === 'image'){
-      //console.log('image');
       let imageData = {
         width: image.width,
         height: image.height,
         format: image.format,
-        url: image.url,
+        url: image.secure_url,
       };
       let newQuestions = Object.assign([], this.state.questions);
       newQuestions[questionID - 1] = Object.assign({}, this.state.questions[questionID - 1], {img: JSON.stringify(imageData)});
@@ -176,7 +171,6 @@ export default class App extends Component {
     this.setState({questionOnMobile: mode});
   }
   render() {
-    //console.log(this.state.questions);
     return (
       <div>
         <div className="row">

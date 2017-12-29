@@ -26,7 +26,13 @@ export default class DeleteQuestions extends Component {
 
   renderQuestionList(){
     if(this.state.questions.length === 0){
-      return(<span>All questions will be deleted upon save.</span>);
+      return(
+        <div className="row question-warning">
+          <div className="col">
+            <span>All questions will be deleted upon save.</span>
+          </div>
+        </div>
+      );
     }
     return this.state.questions.map((questions) => {
       let questionIndex = this.state.questions.indexOf(questions) + 1;

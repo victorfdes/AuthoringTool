@@ -52,6 +52,9 @@ body {
   min-height: calc(100vh - 55px);
   padding: 10px;
   box-shadow: 5px 0 10px #ccc; }
+  .quiz-body .left-section .question-warning {
+    width: 100%;
+    margin: auto; }
   .quiz-body .left-section .question-list {
     width: calc(100% + 20px);
     margin-left: -10px;
